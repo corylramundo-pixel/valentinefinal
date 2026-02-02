@@ -2,80 +2,252 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Will You Be My Valentine?</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Valentine 💘</title>
   <style>
+    :root {
+      --bg1: #ffedf5;
+      --bg2: #fff7fb;
+      --card: rgba(255,255,255,0.85);
+      --shadow: 0 20px 60px rgba(0,0,0,0.12);
+    }
+
+    * { box-sizing: border-box; }
+
     body {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      display: flex;
-      min-height: 100vh;
       margin: 0;
-      background: linear-gradient(135deg, #ffecf3 0%, #ffd6e8 60%, #ffe6f0 100%);
-      align-items: center;
-      justify-content: center;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at top, var(--bg2), var(--bg1));
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: #222;
     }
+
     .card {
-      background: #fff;
-      border-radius: 16px;
+      width: min(720px, 92vw);
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
       padding: 28px;
-      max-width: 520px;
-      width: 90%;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       text-align: center;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.6);
     }
+
     h1 {
-      font-size: 2rem;
-      margin: 0 0 12px;
-      color: #333;
+      margin: 8px 0 16px;
+      font-size: clamp(28px, 4.5vw, 44px);
+      letter-spacing: -0.02em;
     }
-    p {
-      color: #555;
-      margin: 0 0 20px;
+
+    .sub {
+      margin: 0 0 18px;
+      opacity: 0.75;
     }
-    .btns {
+
+    .photo {
+      width: min(420px, 78vw);
+      aspect-ratio: 4 / 3;
+      border-radius: 22px;
+      overflow: hidden;
+      margin: 0 auto 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      background: #fff;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .buttons {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       justify-content: center;
+      align-items: center;
+      padding: 10px 0 6px;
       flex-wrap: wrap;
     }
-    button {
-      padding: 12px 18px;
-      border: none;
-      border-radius: 999px;
-      font-size: 1rem;
+
+    .btn {
+      border: 0;
       cursor: pointer;
-      transition: transform 0.1s ease;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 16px 28px;
+      transition: transform 0.08s ease, filter 0.15s ease;
+      user-select: none;
     }
+
+    .btn:active { transform: scale(0.98); }
+
     .yes {
-      background: #ff6b81;
+      background: #23c55e;
       color: white;
+      font-size: 20px;
+      padding: 18px 34px;
+      box-shadow: 0 12px 24px rgba(35,197,94,0.25);
     }
+
+    .yes:hover { filter: brightness(1.03); }
+
+    /* The “NO” button is positioned absolutely so it can run around */
     .no {
-      background: #e0e0e0;
-      color: #333;
+      position: absolute;
+      background: #ef4444;
+      color: white;
+      font-size: 12px;
+      padding: 8px 14px;
+      box-shadow: 0 10px 18px rgba(239,68,68,0.22);
     }
-    button:active {
-      transform: scale(0.98);
+
+    .no:hover { filter: brightness(1.03); }
+
+    .result {
+      margin-top: 16px;
+      font-size: 18px;
+      font-weight: 700;
+      display: none;
+    }
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.6;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 18px;
+      animation: floatUp linear forwards;
+      filter: drop-shadow(0 6px 8px rgba(0,0,0,0.12));
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      to { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
     }
   </style>
 </head>
+
 <body>
-  <main class="card" aria-label="Valentine question card">
-    <h1>Will you be my Valentine?</h1>
-    <p>I'd love to hear a yes, but I value honesty too. What do you think?</p>
-    <div class="btns" role="group" aria-label="Response options">
-      <button class="yes" onclick="response('Yes!')">YES</button>
-      <button class="no" onclick="response('Maybe later')">Maybe later</button>
-      <button onclick="response('No')">No</button>
+  <div class="card" id="card">
+    <p class="sub">💌 A very important question…</p>
+    <h1>Izzy, will you be my valentine?</h1>
+
+    <div class="photo">
+      <!-- Put an image in your repo (same folder as index.html) and rename it below -->
+      <img src="your-photo.jpg" alt="A cute photo" />
     </div>
-    <p id="reply" aria-live="polite" style="margin-top:16px; min-height:1.2em;"></p>
-  </main>
+
+    <div class="buttons">
+      <button class="btn yes" id="yesBtn">YES 💚</button>
+      <!-- NO is absolutely positioned; we’ll place it with JS -->
+      <button class="btn no" id="noBtn">no</button>
+    </div>
+
+    <div class="result" id="result">YAYYYYY 💘 See you on Valentine’s 😇</div>
+  </div>
+
+  <div class="hearts" id="hearts"></div>
 
   <script>
-    function response(text) {
-      const reply = document.getElementById('reply');
-      reply.textContent = 'You chose: ' + text;
+    const card = document.getElementById("card");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const result = document.getElementById("result");
+    const hearts = document.getElementById("hearts");
+
+    // Place the NO button somewhere nice at first
+    function placeNoInitial() {
+      const rect = card.getBoundingClientRect();
+      const pad = 18;
+
+      // Keep it near the buttons area, but not overlapping the YES
+      const x = rect.left + rect.width * 0.62;
+      const y = rect.top + rect.height * 0.78;
+
+      noBtn.style.left = `${Math.max(pad, Math.min(x, window.innerWidth - noBtn.offsetWidth - pad))}px`;
+      noBtn.style.top  = `${Math.max(pad, Math.min(y, window.innerHeight - noBtn.offsetHeight - pad))}px`;
     }
+
+    // Move the NO button to a random spot (but keep it on screen)
+    function moveNoButton() {
+      const pad = 14;
+      const maxX = window.innerWidth  - noBtn.offsetWidth  - pad;
+      const maxY = window.innerHeight - noBtn.offsetHeight - pad;
+
+      const x = Math.floor(Math.random() * (maxX - pad + 1)) + pad;
+      const y = Math.floor(Math.random() * (maxY - pad + 1)) + pad;
+
+      // A tiny pop effect
+      noBtn.style.transform = "scale(0.98)";
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top  = `${y}px`;
+      requestAnimationFrame(() => (noBtn.style.transform = "scale(1)"));
+    }
+
+    // Extra: make it harder to click NO by moving on hover AND on pointer down
+    ["mouseenter", "touchstart", "pointerdown"].forEach(evt => {
+      noBtn.addEventListener(evt, (e) => {
+        e.preventDefault();
+        moveNoButton();
+      }, { passive: false });
+    });
+
+    // YES button behavior
+    yesBtn.addEventListener("click", () => {
+      result.style.display = "block";
+      spawnHearts(28);
+      // Optional: disable the NO button after yes
+      noBtn.style.display = "none";
+      yesBtn.textContent = "YES 💚 (locked in)";
+      yesBtn.disabled = true;
+      yesBtn.style.cursor = "default";
+    });
+
+    // Hearts effect
+    function spawnHearts(count = 18) {
+      const emojis = ["💘","💖","💗","💞","💕","❤️"];
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement("div");
+        el.className = "heart";
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        const size = 14 + Math.random() * 22;
+        el.style.fontSize = `${size}px`;
+        el.style.left = `${Math.random() * 100}vw`;
+        el.style.bottom = `-30px`;
+        el.style.animationDuration = `${3 + Math.random() * 2.5}s`;
+        el.style.animationDelay = `${Math.random() * 0.35}s`;
+        hearts.appendChild(el);
+
+        // remove after animation
+        setTimeout(() => el.remove(), 7000);
+      }
+    }
+
+    // Initial placement once layout is ready
+    window.addEventListener("load", () => {
+      placeNoInitial();
+      // if the NO button isn't laid out yet, place again
+      setTimeout(placeNoInitial, 50);
+    });
+
+    // Keep button on-screen if window resizes
+    window.addEventListener("resize", () => {
+      placeNoInitial();
+    });
   </script>
 </body>
 </html>
