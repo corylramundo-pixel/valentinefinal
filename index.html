@@ -4,139 +4,164 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Valentine 💘</title>
+
   <style>
-    :root {
-      --bg1: #ffedf5;
-      --bg2: #fff7fb;
-      --card: rgba(255,255,255,0.85);
-      --shadow: 0 20px 60px rgba(0,0,0,0.12);
+    :root{
+      --bg1:#ffedf5;
+      --bg2:#fff7fb;
+      --card:rgba(255,255,255,0.88);
+      --shadow:0 20px 60px rgba(0,0,0,0.12);
     }
 
-    * { box-sizing: border-box; }
+    *{ box-sizing:border-box; }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(circle at top, var(--bg2), var(--bg1));
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      color: #222;
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:radial-gradient(circle at top,var(--bg2),var(--bg1));
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      color:#222;
     }
 
-    .card {
-      width: min(720px, 92vw);
-      background: var(--card);
-      backdrop-filter: blur(10px);
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-      padding: 28px;
-      text-align: center;
-      position: relative;
-      border: 1px solid rgba(255,255,255,0.6);
+    .card{
+      width:min(720px,92vw);
+      background:var(--card);
+      backdrop-filter:blur(10px);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:28px;
+      text-align:center;
+      position:relative;
+      border:1px solid rgba(255,255,255,0.65);
     }
 
-    h1 {
-      margin: 8px 0 16px;
-      font-size: clamp(28px, 4.5vw, 44px);
-      letter-spacing: -0.02em;
+    h1{
+      margin:8px 0 16px;
+      font-size:clamp(28px,4.5vw,44px);
+      letter-spacing:-0.02em;
     }
 
-    .sub {
-      margin: 0 0 18px;
-      opacity: 0.75;
+    .sub{
+      margin:0 0 18px;
+      opacity:0.75;
     }
 
-    .photo {
-      width: min(420px, 78vw);
-      aspect-ratio: 4 / 3;
-      border-radius: 22px;
-      overflow: hidden;
-      margin: 0 auto 22px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-      background: #fff;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(0,0,0,0.06);
+    /* Center the photo container + image */
+    .photo{
+      width:min(420px,78vw);
+      aspect-ratio:4/3;
+      border-radius:22px;
+      overflow:hidden;
+      margin:0 auto 22px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.12);
+      background:#fff;
+      border:1px solid rgba(0,0,0,0.06);
+      display:flex;
+      justify-content:center;
+      align-items:center;
     }
 
-    .photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .photo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      display:block;
     }
 
-    .buttons {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      align-items: center;
-      padding: 10px 0 6px;
-      flex-wrap: wrap;
+    .buttons{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      align-items:center;
+      padding:10px 0 6px;
+      flex-wrap:wrap;
     }
 
-    .btn {
-      border: 0;
-      cursor: pointer;
-      font-weight: 800;
-      border-radius: 999px;
-      padding: 16px 28px;
-      transition: transform 0.08s ease, filter 0.15s ease;
-      user-select: none;
+    .btn{
+      border:0;
+      cursor:pointer;
+      font-weight:800;
+      border-radius:999px;
+      user-select:none;
+      transition:transform 0.08s ease, filter 0.15s ease;
     }
 
-    .btn:active { transform: scale(0.98); }
+    .btn:active{ transform:scale(0.98); }
 
-    .yes {
-      background: #23c55e;
-      color: white;
-      font-size: 20px;
-      padding: 18px 34px;
-      box-shadow: 0 12px 24px rgba(35,197,94,0.25);
+    /* YES starts big and can grow */
+    .yes{
+      background:#23c55e;
+      color:#fff;
+      font-size:20px;
+      padding:18px 34px;
+      box-shadow:0 12px 24px rgba(35,197,94,0.25);
+      transform-origin:center;
     }
 
-    .yes:hover { filter: brightness(1.03); }
+    .yes:hover{ filter:brightness(1.03); }
 
-    /* The “NO” button is positioned absolutely so it can run around */
-    .no {
-      position: absolute;
-      background: #ef4444;
-      color: white;
-      font-size: 12px;
-      padding: 8px 14px;
-      box-shadow: 0 10px 18px rgba(239,68,68,0.22);
+    /* NO is small and moves around the screen */
+    .no{
+      position:fixed;
+      background:#ef4444;
+      color:#fff;
+      font-size:12px;
+      padding:8px 14px;
+      box-shadow:0 10px 18px rgba(239,68,68,0.22);
+      z-index:10;
     }
 
-    .no:hover { filter: brightness(1.03); }
+    .no:hover{ filter:brightness(1.03); }
 
-    .result {
-      margin-top: 16px;
-      font-size: 18px;
-      font-weight: 700;
-      display: none;
+    .result{
+      margin-top:16px;
+      font-size:18px;
+      font-weight:800;
+      display:none;
     }
 
-    .hearts {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      opacity: 0.6;
+    .hearts{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      opacity:0.65;
     }
 
-    .heart {
-      position: absolute;
-      font-size: 18px;
-      animation: floatUp linear forwards;
-      filter: drop-shadow(0 6px 8px rgba(0,0,0,0.12));
+    .heart{
+      position:absolute;
+      font-size:18px;
+      animation:floatUp linear forwards;
+      filter:drop-shadow(0 6px 8px rgba(0,0,0,0.12));
     }
 
-    @keyframes floatUp {
-      from { transform: translateY(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      to { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+    @keyframes floatUp{
+      from{ transform:translateY(0) rotate(0deg); opacity:0; }
+      10%{ opacity:1; }
+      to{ transform:translateY(-120vh) rotate(360deg); opacity:0; }
+    }
+
+    /* Screen shake (used on NO click) */
+    @keyframes shake{
+      0%{ transform:translate(0,0); }
+      10%{ transform:translate(-10px, 6px); }
+      20%{ transform:translate(9px, -8px); }
+      30%{ transform:translate(-8px, -6px); }
+      40%{ transform:translate(10px, 8px); }
+      50%{ transform:translate(-10px, -6px); }
+      60%{ transform:translate(8px, 7px); }
+      70%{ transform:translate(-7px, -8px); }
+      80%{ transform:translate(10px, -4px); }
+      90%{ transform:translate(-9px, 6px); }
+      100%{ transform:translate(0,0); }
+    }
+
+    .shake{
+      animation:shake 0.45s ease-in-out;
     }
   </style>
 </head>
@@ -147,17 +172,16 @@
     <h1>Izzy, will you be my valentine?</h1>
 
     <div class="photo">
-      <!-- Put an image in your repo (same folder as index.html) and rename it below -->
-      <img src="your-photo.jpg" alt="A cute photo" />
+      <!-- IMPORTANT: set this to your exact image filename in the repo -->
+      <img src="your-photo.jpg.png" alt="A cute photo" />
     </div>
 
     <div class="buttons">
       <button class="btn yes" id="yesBtn">YES 💚</button>
-      <!-- NO is absolutely positioned; we’ll place it with JS -->
       <button class="btn no" id="noBtn">no</button>
     </div>
 
-    <div class="result" id="result">YAYYYYY 💘 See you on Valentine’s 😇</div>
+    <div class="result" id="result"></div>
   </div>
 
   <div class="hearts" id="hearts"></div>
@@ -165,59 +189,96 @@
   <script>
     const card = document.getElementById("card");
     const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
+    const noBtn  = document.getElementById("noBtn");
     const result = document.getElementById("result");
     const hearts = document.getElementById("hearts");
 
-    // Place the NO button somewhere nice at first
-    function placeNoInitial() {
-      const rect = card.getBoundingClientRect();
-      const pad = 18;
+    // --- YES growth over time ---
+    let yesScale = 1;
 
-      // Keep it near the buttons area, but not overlapping the YES
-      const x = rect.left + rect.width * 0.62;
-      const y = rect.top + rect.height * 0.78;
-
-      noBtn.style.left = `${Math.max(pad, Math.min(x, window.innerWidth - noBtn.offsetWidth - pad))}px`;
-      noBtn.style.top  = `${Math.max(pad, Math.min(y, window.innerHeight - noBtn.offsetHeight - pad))}px`;
+    function setYesScale(scale){
+      yesBtn.style.transform = `scale(${scale})`;
     }
 
-    // Move the NO button to a random spot (but keep it on screen)
+    // Make YES subtly grow every second (even if nothing happens)
+    setInterval(() => {
+      // cap so it doesn’t get ridiculous
+      if (yesScale < 1.6) {
+        yesScale += 0.02;
+        setYesScale(yesScale);
+      }
+    }, 1000);
+
+    // Also make YES grow a bit whenever NO tries to run away
+    function growYesOnNo(){
+      if (yesScale < 1.9) {
+        yesScale += 0.06;
+        setYesScale(yesScale);
+      }
+    }
+
+    // --- NO button movement (continuous + evasive) ---
     function moveNoButton() {
-      const pad = 14;
-      const maxX = window.innerWidth  - noBtn.offsetWidth  - pad;
-      const maxY = window.innerHeight - noBtn.offsetHeight - pad;
+      const pad = 10;
+      const maxX = Math.max(pad, window.innerWidth  - noBtn.offsetWidth  - pad);
+      const maxY = Math.max(pad, window.innerHeight - noBtn.offsetHeight - pad);
 
-      const x = Math.floor(Math.random() * (maxX - pad + 1)) + pad;
-      const y = Math.floor(Math.random() * (maxY - pad + 1)) + pad;
+      const x = pad + Math.random() * (maxX - pad);
+      const y = pad + Math.random() * (maxY - pad);
 
-      // A tiny pop effect
-      noBtn.style.transform = "scale(0.98)";
       noBtn.style.left = `${x}px`;
       noBtn.style.top  = `${y}px`;
-      requestAnimationFrame(() => (noBtn.style.transform = "scale(1)"));
     }
 
-    // Extra: make it harder to click NO by moving on hover AND on pointer down
-    ["mouseenter", "touchstart", "pointerdown"].forEach(evt => {
+    // Initial placement
+    window.addEventListener("load", () => {
+      moveNoButton();
+      // Ensure it moves even if layout shifts
+      setTimeout(moveNoButton, 60);
+    });
+
+    // Keep it in bounds on resize
+    window.addEventListener("resize", moveNoButton);
+
+    // Continuous random movement forever
+    setInterval(() => {
+      moveNoButton();
+      growYesOnNo();
+    }, 700);
+
+    // Extra evasive: move when you try to hover/click it
+    ["mouseenter", "touchstart", "pointerdown", "mouseover"].forEach(evt => {
       noBtn.addEventListener(evt, (e) => {
         e.preventDefault();
         moveNoButton();
+        growYesOnNo();
       }, { passive: false });
     });
 
-    // YES button behavior
+    // --- Result messages ---
     yesBtn.addEventListener("click", () => {
       result.style.display = "block";
-      spawnHearts(28);
-      // Optional: disable the NO button after yes
-      noBtn.style.display = "none";
-      yesBtn.textContent = "YES 💚 (locked in)";
-      yesBtn.disabled = true;
-      yesBtn.style.cursor = "default";
+      result.textContent = "IT'S A MIRACLE. See you on Valentine's Day Sexthy 😛😏😇";
+      spawnHearts(34);
     });
 
-    // Hearts effect
+    // On NO click: show message + screen shake + move again
+    noBtn.addEventListener("click", () => {
+      result.style.display = "block";
+      result.textContent = "so you hate me";
+
+      // screen shake
+      document.body.classList.remove("shake");
+      // force reflow so animation re-triggers reliably
+      void document.body.offsetWidth;
+      document.body.classList.add("shake");
+
+      // keep it moving
+      moveNoButton();
+      growYesOnNo();
+    });
+
+    // --- Hearts effect ---
     function spawnHearts(count = 18) {
       const emojis = ["💘","💖","💗","💞","💕","❤️"];
       for (let i = 0; i < count; i++) {
@@ -231,23 +292,9 @@
         el.style.animationDuration = `${3 + Math.random() * 2.5}s`;
         el.style.animationDelay = `${Math.random() * 0.35}s`;
         hearts.appendChild(el);
-
-        // remove after animation
         setTimeout(() => el.remove(), 7000);
       }
     }
-
-    // Initial placement once layout is ready
-    window.addEventListener("load", () => {
-      placeNoInitial();
-      // if the NO button isn't laid out yet, place again
-      setTimeout(placeNoInitial, 50);
-    });
-
-    // Keep button on-screen if window resizes
-    window.addEventListener("resize", () => {
-      placeNoInitial();
-    });
   </script>
 </body>
 </html>
