@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Will You Be My Valentine?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      display: flex;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #ffecf3 0%, #ffd6e8 60%, #ffe6f0 100%);
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      max-width: 520px;
+      width: 90%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 12px;
+      color: #333;
+    }
+    p {
+      color: #555;
+      margin: 0 0 20px;
+    }
+    .btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 999px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    .yes {
+      background: #ff6b81;
+      color: white;
+    }
+    .no {
+      background: #e0e0e0;
+      color: #333;
+    }
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <main class="card" aria-label="Valentine question card">
+    <h1>Will you be my Valentine?</h1>
+    <p>I'd love to hear a yes, but I value honesty too. What do you think?</p>
+    <div class="btns" role="group" aria-label="Response options">
+      <button class="yes" onclick="response('Yes!')">YES</button>
+      <button class="no" onclick="response('Maybe later')">Maybe later</button>
+      <button onclick="response('No')">No</button>
+    </div>
+    <p id="reply" aria-live="polite" style="margin-top:16px; min-height:1.2em;"></p>
+  </main>
+
+  <script>
+    function response(text) {
+      const reply = document.getElementById('reply');
+      reply.textContent = 'You chose: ' + text;
+    }
+  </script>
+</body>
+</html>
