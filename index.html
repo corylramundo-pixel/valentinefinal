@@ -28,7 +28,18 @@ overflow:auto;
 }
 
 .sub{opacity:.7;font-weight:600;font-size:14px;margin-bottom:6px;}
-h1{font-size:32px;margin:6px 0 10px;}
+
+/* Headline fade-in */
+h1{
+font-size:32px;
+margin:6px 0 10px;
+opacity:0;
+transition:opacity 2s ease;
+}
+
+h1.show{
+opacity:1;
+}
 
 .photo{
 width:420px;
@@ -79,6 +90,14 @@ font-size:16px;
 display:none;
 }
 
+.fade{
+opacity:0;
+transition:opacity 1.2s ease;
+margin-top:6px;
+}
+
+.fade.show{opacity:1;}
+
 @keyframes shake{
 0%{transform:translate(0)}
 20%{transform:translate(10px,-6px)}
@@ -96,7 +115,7 @@ display:none;
 
 <div class="card" id="card">
 <div class="sub">💌 A very important question…</div>
-<h1>Izzy, will you be my valentine?</h1>
+<h1 id="headline">Izzy, will you be my valentine?</h1>
 
 <div class="photo">
 <img src="your-photo.jpg">
@@ -114,6 +133,12 @@ display:none;
 const yesBtn=document.getElementById("yesBtn");
 const noBtn=document.getElementById("noBtn");
 const result=document.getElementById("result");
+const headline=document.getElementById("headline");
+
+// Headline fades in after load
+window.addEventListener("load",()=>{
+  setTimeout(()=>headline.classList.add("show"),400);
+});
 
 function showMessage(text){
 result.style.display="block";
@@ -166,7 +191,7 @@ setInterval(()=>{
 if(free) moveNo();
 },5500);
 
-// Hover dodge only (not click)
+// Hover dodge only
 noBtn.addEventListener("mouseenter",()=>{
 if(!free)return;
 setTimeout(()=>{
@@ -182,6 +207,20 @@ yesBtn.style.transform=`scale(${yesScale})`;
 
 yesBtn.addEventListener("click",()=>{
 showMessage("THATS WHAT I THOUGHT! See you on Valentine's Day Sexthy 😛😏😇");
+
+// PS messages
+const ps1=document.createElement("div");
+ps1.className="fade";
+ps1.textContent="P.S. I love you.";
+result.appendChild(ps1);
+
+const ps2=document.createElement("div");
+ps2.className="fade";
+ps2.textContent="P.S.S Wear something tight 😏";
+result.appendChild(ps2);
+
+setTimeout(()=>ps1.classList.add("show"),1200);
+setTimeout(()=>ps2.classList.add("show"),2600);
 });
 
 noBtn.addEventListener("click",(e)=>{
