@@ -1,300 +1,195 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Valentine 💘</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Valentine 💘</title>
 
-  <style>
-    :root{
-      --bg1:#ffedf5;
-      --bg2:#fff7fb;
-      --card:rgba(255,255,255,0.88);
-      --shadow:0 20px 60px rgba(0,0,0,0.12);
-    }
+<style>
+body{
+margin:0;
+min-height:100vh;
+font-family:system-ui;
+background:#ffeef5;
+display:grid;
+place-items:center;
+overflow:hidden;
+}
 
-    *{ box-sizing:border-box; }
+.card{
+background:white;
+border-radius:28px;
+padding:28px;
+text-align:center;
+box-shadow:0 20px 50px rgba(0,0,0,.15);
+width:min(700px,92vw);
+}
 
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background:radial-gradient(circle at top,var(--bg2),var(--bg1));
-      display:grid;
-      place-items:center;
-      overflow:hidden;
-      color:#222;
-    }
+h1{font-size:40px;margin:10px 0;}
 
-    .card{
-      width:min(720px,92vw);
-      background:var(--card);
-      backdrop-filter:blur(10px);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      padding:28px;
-      text-align:center;
-      position:relative;
-      border:1px solid rgba(255,255,255,0.65);
-    }
+.photo{
+width:400px;
+max-width:80vw;
+margin:0 auto 20px;
+border-radius:20px;
+overflow:hidden;
+}
 
-    h1{
-      margin:8px 0 16px;
-      font-size:clamp(28px,4.5vw,44px);
-      letter-spacing:-0.02em;
-    }
+.photo img{
+width:100%;
+display:block;
+}
 
-    .sub{
-      margin:0 0 18px;
-      opacity:0.75;
-    }
+.buttons{
+display:flex;
+gap:15px;
+justify-content:center;
+margin-top:15px;
+}
 
-    /* Center the photo container + image */
-    .photo{
-      width:min(420px,78vw);
-      aspect-ratio:4/3;
-      border-radius:22px;
-      overflow:hidden;
-      margin:0 auto 22px;
-      box-shadow:0 10px 30px rgba(0,0,0,0.12);
-      background:#fff;
-      border:1px solid rgba(0,0,0,0.06);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-    }
+.btn{
+border:none;
+border-radius:999px;
+padding:16px 30px;
+font-weight:900;
+font-size:18px;
+cursor:pointer;
+transition:.15s;
+min-width:160px;
+}
 
-    .photo img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      display:block;
-    }
+.yes{background:#22c55e;color:white;}
+.no{background:#ef4444;color:white;}
 
-    .buttons{
-      display:flex;
-      gap:14px;
-      justify-content:center;
-      align-items:center;
-      padding:10px 0 6px;
-      flex-wrap:wrap;
-    }
+.result{
+margin-top:15px;
+font-weight:900;
+display:none;
+}
 
-    .btn{
-      border:0;
-      cursor:pointer;
-      font-weight:800;
-      border-radius:999px;
-      user-select:none;
-      transition:transform 0.08s ease, filter 0.15s ease;
-    }
+.hearts{position:fixed;inset:0;pointer-events:none;}
 
-    .btn:active{ transform:scale(0.98); }
+@keyframes floatUp{
+to{transform:translateY(-120vh);opacity:0;}
+}
 
-    /* YES starts big and can grow */
-    .yes{
-      background:#23c55e;
-      color:#fff;
-      font-size:20px;
-      padding:18px 34px;
-      box-shadow:0 12px 24px rgba(35,197,94,0.25);
-      transform-origin:center;
-    }
+@keyframes shake{
+0%{transform:translate(0)}
+25%{transform:translate(8px,-6px)}
+50%{transform:translate(-8px,6px)}
+75%{transform:translate(6px,-8px)}
+100%{transform:translate(0)}
+}
 
-    .yes:hover{ filter:brightness(1.03); }
-
-    /* NO is small and moves around the screen */
-    .no{
-      position:fixed;
-      background:#ef4444;
-      color:#fff;
-      font-size:12px;
-      padding:8px 14px;
-      box-shadow:0 10px 18px rgba(239,68,68,0.22);
-      z-index:10;
-    }
-
-    .no:hover{ filter:brightness(1.03); }
-
-    .result{
-      margin-top:16px;
-      font-size:18px;
-      font-weight:800;
-      display:none;
-    }
-
-    .hearts{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      overflow:hidden;
-      opacity:0.65;
-    }
-
-    .heart{
-      position:absolute;
-      font-size:18px;
-      animation:floatUp linear forwards;
-      filter:drop-shadow(0 6px 8px rgba(0,0,0,0.12));
-    }
-
-    @keyframes floatUp{
-      from{ transform:translateY(0) rotate(0deg); opacity:0; }
-      10%{ opacity:1; }
-      to{ transform:translateY(-120vh) rotate(360deg); opacity:0; }
-    }
-
-    /* Screen shake (used on NO click) */
-    @keyframes shake{
-      0%{ transform:translate(0,0); }
-      10%{ transform:translate(-10px, 6px); }
-      20%{ transform:translate(9px, -8px); }
-      30%{ transform:translate(-8px, -6px); }
-      40%{ transform:translate(10px, 8px); }
-      50%{ transform:translate(-10px, -6px); }
-      60%{ transform:translate(8px, 7px); }
-      70%{ transform:translate(-7px, -8px); }
-      80%{ transform:translate(10px, -4px); }
-      90%{ transform:translate(-9px, 6px); }
-      100%{ transform:translate(0,0); }
-    }
-
-    .shake{
-      animation:shake 0.45s ease-in-out;
-    }
-  </style>
+.shake{animation:shake .4s;}
+</style>
 </head>
 
 <body>
-  <div class="card" id="card">
-    <p class="sub">💌 A very important question…</p>
-    <h1>Izzy, will you be my valentine?</h1>
 
-    <div class="photo">
-      <!-- IMPORTANT: set this to your exact image filename in the repo -->
-      <img src="your-photo.jpg.png" alt="A cute photo" />
-    </div>
+<div class="card">
+<p>💌 A very important question…</p>
+<h1>Izzy, will you be my valentine?</h1>
 
-    <div class="buttons">
-      <button class="btn yes" id="yesBtn">YES 💚</button>
-      <button class="btn no" id="noBtn">no</button>
-    </div>
+<div class="photo">
+<img src="your-photo.jpg">
+</div>
 
-    <div class="result" id="result"></div>
-  </div>
+<div class="buttons" id="row">
+<button class="btn yes" id="yes">YES 💚</button>
+<button class="btn no" id="no">NO ❤️</button>
+</div>
 
-  <div class="hearts" id="hearts"></div>
+<div class="result" id="result"></div>
+</div>
 
-  <script>
-    const card = document.getElementById("card");
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn  = document.getElementById("noBtn");
-    const result = document.getElementById("result");
-    const hearts = document.getElementById("hearts");
+<div class="hearts" id="hearts"></div>
 
-    // --- YES growth over time ---
-    let yesScale = 1;
+<script>
+const yes=document.getElementById("yes");
+const no=document.getElementById("no");
+const row=document.getElementById("row");
+const result=document.getElementById("result");
+const hearts=document.getElementById("hearts");
 
-    function setYesScale(scale){
-      yesBtn.style.transform = `scale(${scale})`;
-    }
+let yesScale=1;
+let noScale=1;
+let free=false;
 
-    // Make YES subtly grow every second (even if nothing happens)
-    setInterval(() => {
-      // cap so it doesn’t get ridiculous
-      if (yesScale < 1.6) {
-        yesScale += 0.02;
-        setYesScale(yesScale);
-      }
-    }, 1000);
+// YES grows slowly
+setInterval(()=>{
+if(yesScale<1.7){
+yesScale+=.02;
+yes.style.transform=`scale(${yesScale})`;
+}
+},1200);
 
-    // Also make YES grow a bit whenever NO tries to run away
-    function growYesOnNo(){
-      if (yesScale < 1.9) {
-        yesScale += 0.06;
-        setYesScale(yesScale);
-      }
-    }
+// NO shrinks slowly
+setInterval(()=>{
+if(noScale>.45){
+noScale-=.02;
+no.style.transform=`scale(${noScale})`;
+}
+},2000);
 
-    // --- NO button movement (continuous + evasive) ---
-    function moveNoButton() {
-      const pad = 10;
-      const maxX = Math.max(pad, window.innerWidth  - noBtn.offsetWidth  - pad);
-      const maxY = Math.max(pad, window.innerHeight - noBtn.offsetHeight - pad);
+// After 2 seconds NO breaks free
+setTimeout(()=>{
+free=true;
+no.style.position="fixed";
+moveNo();
+},2000);
 
-      const x = pad + Math.random() * (maxX - pad);
-      const y = pad + Math.random() * (maxY - pad);
+function moveNo(){
+if(!free)return;
+const pad=20;
+const x=Math.random()*(window.innerWidth-no.offsetWidth-pad);
+const y=Math.random()*(window.innerHeight-no.offsetHeight-pad);
+no.style.left=x+"px";
+no.style.top=y+"px";
+}
 
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top  = `${y}px`;
-    }
+// Slow wandering
+setInterval(()=>{
+if(free) moveNo();
+},1600);
 
-    // Initial placement
-    window.addEventListener("load", () => {
-      moveNoButton();
-      // Ensure it moves even if layout shifts
-      setTimeout(moveNoButton, 60);
-    });
+// Extra dodge on hover
+["mouseenter","pointerdown"].forEach(e=>{
+no.addEventListener(e,()=>{
+moveNo();
+yesScale+=.05;
+yes.style.transform=`scale(${yesScale})`;
+});
+});
 
-    // Keep it in bounds on resize
-    window.addEventListener("resize", moveNoButton);
+yes.onclick=()=>{
+result.style.display="block";
+result.textContent="THATS WHAT I THOUGHT! See you on Valentine's Day Sexthy 😛😏😇";
+spawnHearts();
+};
 
-    // Continuous random movement forever
-    setInterval(() => {
-      moveNoButton();
-      growYesOnNo();
-    }, 700);
+no.onclick=()=>{
+result.style.display="block";
+result.textContent="so you hate me";
+document.body.classList.remove("shake");
+void document.body.offsetWidth;
+document.body.classList.add("shake");
+moveNo();
+};
 
-    // Extra evasive: move when you try to hover/click it
-    ["mouseenter", "touchstart", "pointerdown", "mouseover"].forEach(evt => {
-      noBtn.addEventListener(evt, (e) => {
-        e.preventDefault();
-        moveNoButton();
-        growYesOnNo();
-      }, { passive: false });
-    });
+function spawnHearts(){
+for(let i=0;i<25;i++){
+const h=document.createElement("div");
+h.textContent="💘";
+h.style.position="absolute";
+h.style.left=Math.random()*100+"vw";
+h.style.bottom="-20px";
+h.style.animation=`floatUp ${3+Math.random()*2}s linear`;
+hearts.appendChild(h);
+setTimeout(()=>h.remove(),5000);
+}
+}
+</script>
 
-    // --- Result messages ---
-    yesBtn.addEventListener("click", () => {
-      result.style.display = "block";
-      result.textContent = "IT'S A MIRACLE. See you on Valentine's Day Sexthy 😛😏😇";
-      spawnHearts(34);
-    });
-
-    // On NO click: show message + screen shake + move again
-    noBtn.addEventListener("click", () => {
-      result.style.display = "block";
-      result.textContent = "so you hate me";
-
-      // screen shake
-      document.body.classList.remove("shake");
-      // force reflow so animation re-triggers reliably
-      void document.body.offsetWidth;
-      document.body.classList.add("shake");
-
-      // keep it moving
-      moveNoButton();
-      growYesOnNo();
-    });
-
-    // --- Hearts effect ---
-    function spawnHearts(count = 18) {
-      const emojis = ["💘","💖","💗","💞","💕","❤️"];
-      for (let i = 0; i < count; i++) {
-        const el = document.createElement("div");
-        el.className = "heart";
-        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        const size = 14 + Math.random() * 22;
-        el.style.fontSize = `${size}px`;
-        el.style.left = `${Math.random() * 100}vw`;
-        el.style.bottom = `-30px`;
-        el.style.animationDuration = `${3 + Math.random() * 2.5}s`;
-        el.style.animationDelay = `${Math.random() * 0.35}s`;
-        hearts.appendChild(el);
-        setTimeout(() => el.remove(), 7000);
-      }
-    }
-  </script>
 </body>
 </html>
