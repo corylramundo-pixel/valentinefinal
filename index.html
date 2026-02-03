@@ -6,182 +6,194 @@
 <title>Valentine 💘</title>
 
 <style>
-  :root{
-    --bg:#ffeef5;
-    --shadow:0 18px 45px rgba(0,0,0,.14);
-  }
+body{
+margin:0;
+min-height:100vh;
+font-family:system-ui;
+background:#ffeef5;
+display:grid;
+place-items:center;
+overflow:hidden;
+}
 
-  *{ box-sizing:border-box; }
+.card{
+background:white;
+border-radius:26px;
+padding:18px;
+text-align:center;
+box-shadow:0 18px 45px rgba(0,0,0,.14);
+width:min(720px,92vw);
+max-height:90vh;
+overflow:auto;
+}
 
-  body{
-    margin:0;
-    min-height:100vh;
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-    background:var(--bg);
-    display:grid;
-    place-items:center;
-    overflow:hidden;
-    color:#111;
-  }
+.sub{opacity:.7;font-weight:600;font-size:14px;margin-bottom:6px;}
+h1{font-size:32px;margin:6px 0 10px;}
 
-  /* “Zoom out” the whole layout */
-  .card{
-    background:#fff;
-    border-radius:26px;
-    padding:18px 18px 16px;
-    text-align:center;
-    box-shadow:var(--shadow);
-    width:min(720px,92vw);
-    max-height:90vh;
-    overflow:auto; /* if someone has a smaller screen, it can scroll */
-  }
+.photo{
+width:420px;
+max-width:84vw;
+height:360px;
+max-height:42vh;
+margin:0 auto 14px;
+border-radius:18px;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 10px 26px rgba(0,0,0,.12);
+}
 
-  .sub{
-    margin:2px 0 8px;
-    opacity:.75;
-    font-weight:600;
-    font-size:14px;
-  }
+.photo img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
 
-  h1{
-    font-size:clamp(22px,3.8vw,34px);
-    margin:6px 0 12px;
-    letter-spacing:-0.02em;
-  }
+.buttons{
+display:flex;
+gap:12px;
+justify-content:center;
+margin-top:8px;
+}
 
-  /* Make the photo smaller so the message is always visible */
-  .photo{
-    width:min(420px,84vw);
-    height:min(44vh, 360px);      /* cap height */
-    margin:0 auto 14px;
-    border-radius:18px;
-    overflow:hidden;
-    background:#fff;
-    border:1px solid rgba(0,0,0,.06);
-    box-shadow:0 10px 26px rgba(0,0,0,.12);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
+.btn{
+border:none;
+border-radius:999px;
+padding:14px 26px;
+font-weight:900;
+font-size:16px;
+cursor:pointer;
+min-width:160px;
+user-select:none;
+transition:.15s;
+}
 
-  .photo img{
-    width:100%;
-    height:100%;
-    object-fit:contain;           /* no zoom */
-    object-position:center;
-    display:block;
-    background:#fff;
-  }
+.yes{background:#22c55e;color:white;}
+.no{background:#ef4444;color:white;}
 
-  .buttons{
-    display:flex;
-    gap:12px;
-    justify-content:center;
-    align-items:center;
-    flex-wrap:wrap;
-    margin:10px 0 8px;
-  }
+.result{
+margin-top:10px;
+font-weight:900;
+font-size:16px;
+display:none;
+}
 
-  .btn{
-    border:none;
-    border-radius:999px;
-    padding:14px 26px;
-    font-weight:900;
-    font-size:16px;
-    cursor:pointer;
-    min-width:160px;
-    user-select:none;
-    transition:transform .12s ease, filter .15s ease;
-  }
+@keyframes shake{
+0%{transform:translate(0)}
+20%{transform:translate(10px,-6px)}
+40%{transform:translate(-10px,6px)}
+60%{transform:translate(8px,-8px)}
+80%{transform:translate(-8px,8px)}
+100%{transform:translate(0)}
+}
 
-  .btn:active{ transform:scale(.98); }
-
-  .yes{ background:#22c55e; color:#fff; }
-  .no{  background:#ef4444; color:#fff; }
-
-  /* Make sure message always has room */
-  .result{
-    margin-top:10px;
-    font-weight:900;
-    font-size:16px;
-    display:none;
-    padding-bottom:6px;
-  }
-
-  @keyframes shake{
-    0%{transform:translate(0)}
-    20%{transform:translate(10px,-6px)}
-    40%{transform:translate(-10px,6px)}
-    60%{transform:translate(8px,-8px)}
-    80%{transform:translate(-8px,8px)}
-    100%{transform:translate(0)}
-  }
-  .shake{ animation:shake .45s; }
+.shake{animation:shake .45s;}
 </style>
 </head>
 
 <body>
-  <div class="card" id="card">
-    <div class="sub">💌 A very important question…</div>
-    <h1>Izzy, will you be my valentine?</h1>
 
-    <div class="photo">
-      <img src="your-photo.jpg" alt="photo">
-    </div>
+<div class="card" id="card">
+<div class="sub">💌 A very important question…</div>
+<h1>Izzy, will you be my valentine?</h1>
 
-    <!-- Start next to each other, same size -->
-    <div class="buttons">
-      <button class="btn yes" id="yesBtn">YES 💚</button>
-      <button class="btn no" id="noBtn">NO ❤️</button>
-    </div>
+<div class="photo">
+<img src="your-photo.jpg">
+</div>
 
-    <div class="result" id="result"></div>
-  </div>
+<div class="buttons">
+<button class="btn yes" id="yesBtn">YES 💚</button>
+<button class="btn no" id="noBtn">NO ❤️</button>
+</div>
+
+<div class="result" id="result"></div>
+</div>
 
 <script>
-  const card   = document.getElementById("card");
-  const yesBtn = document.getElementById("yesBtn");
-  const noBtn  = document.getElementById("noBtn");
-  const result = document.getElementById("result");
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const result=document.getElementById("result");
 
-  // YES grows slowly
-  let yesScale = 1;
-  setInterval(() => {
-    if (yesScale < 1.45) {
-      yesScale += 0.015;
-      yesBtn.style.transform = `scale(${yesScale})`;
-    }
-  }, 1400);
+function showMessage(text){
+result.style.display="block";
+result.textContent=text;
+result.scrollIntoView({behavior:"smooth",block:"end"});
+}
 
-  // NO shrinks slowly over time (but not too tiny)
-  let noScale = 1;
-  function applyNoScale(){
-    noBtn.style.transform = `scale(${noScale})`;
-  }
-  setInterval(() => {
-    if (noScale > 0.65) {
-      noScale -= 0.02;
-      applyNoScale();
-    }
-  }, 2600);
+// YES grows slowly
+let yesScale=1;
+setInterval(()=>{
+if(yesScale<1.45){
+yesScale+=.015;
+yesBtn.style.transform=`scale(${yesScale})`;
+}
+},1400);
 
-  // After 2 seconds, NO starts wandering… SLOWLY
-  let free = false;
-  setTimeout(() => {
-    free = true;
-    noBtn.style.position = "fixed";
-    moveNo();
-  }, 2000);
+// NO shrinks slowly
+let noScale=1;
+setInterval(()=>{
+if(noScale>.65){
+noScale-=.02;
+noBtn.style.transform=`scale(${noScale})`;
+}
+},2600);
 
-  function moveNo(){
-    if (!free) return;
+// NO escapes after 2s
+let free=false;
+setTimeout(()=>{
+free=true;
+const r=noBtn.getBoundingClientRect();
+noBtn.style.position="fixed";
+noBtn.style.left=r.left+"px";
+noBtn.style.top=r.top+"px";
+moveNo();
+},2000);
 
-    const pad = 14;
-    const w = noBtn.getBoundingClientRect().width;
-    const h = noBtn.getBoundingClientRect().height;
+function moveNo(){
+if(!free)return;
+const pad=14;
+const w=noBtn.offsetWidth;
+const h=noBtn.offsetHeight;
+const x=pad+Math.random()*(window.innerWidth-w-pad);
+const y=pad+Math.random()*(window.innerHeight-h-pad);
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+}
 
-    const maxX = Math.max(pad, window.innerWidth  - w - pad);
-    const maxY = Math.max(pad, window.innerHeight - h - pad);
+// Slow wander
+setInterval(()=>{
+if(free) moveNo();
+},5500);
 
-    const x = pad + Math.random() * (maxX - pad);
-    const y = pad + Math.
+// Hover dodge only (not click)
+noBtn.addEventListener("mouseenter",()=>{
+if(!free)return;
+setTimeout(()=>{
+if(noBtn.matches(":hover")){
+moveNo();
+if(yesScale<1.55){
+yesScale+=.03;
+yesBtn.style.transform=`scale(${yesScale})`;
+}
+}
+},400);
+});
+
+yesBtn.addEventListener("click",()=>{
+showMessage("THATS WHAT I THOUGHT! See you on Valentine's Day Sexthy 😛😏😇");
+});
+
+noBtn.addEventListener("click",(e)=>{
+e.stopPropagation();
+showMessage("so you hate me");
+document.body.classList.remove("shake");
+void document.body.offsetWidth;
+document.body.classList.add("shake");
+});
+
+window.addEventListener("resize",()=>{ if(free) moveNo(); });
+</script>
+
+</body>
+</html>
